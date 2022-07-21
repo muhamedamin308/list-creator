@@ -1,24 +1,18 @@
 package com.example.listmaker
 
-import android.net.LinkAddress
+import android.content.Intent
 import android.os.Bundle
 import android.text.InputType
-import com.google.android.material.snackbar.Snackbar
-import androidx.appcompat.app.AppCompatActivity
-import androidx.navigation.findNavController
-import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.navigateUp
-import androidx.navigation.ui.setupActionBarWithNavController
-import android.view.Menu
-import android.view.MenuItem
 import android.widget.EditText
 import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
+import androidx.navigation.ui.AppBarConfiguration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.listmaker.databinding.ActivityMainBinding
-import org.intellij.lang.annotations.JdkConstants
-
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(),
+    ListSelectionRecyclerViewAdapter.ListSelectionRecyclerViewClickListener
+{
 
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: ActivityMainBinding
@@ -32,8 +26,7 @@ class MainActivity : AppCompatActivity() {
         val lists = listDataManager.readList()
         listsRecyclerView = findViewById<RecyclerView>(R.id.lists_recyclerview)
         listsRecyclerView.layoutManager = LinearLayoutManager(this)
-        listsRecyclerView.adapter = ListSelectionRecyclerViewAdapter(lists)
-
+        listsRecyclerView.adapter = ListSelectionRecyclerViewAdapter(lists, this)
         binding.fab.setOnClickListener {
             showCreateListDialog()
         }
@@ -57,8 +50,21 @@ class MainActivity : AppCompatActivity() {
             val recyclerAdapter = listsRecyclerView.adapter as ListSelectionRecyclerViewAdapter
             recyclerAdapter.addList(list)
             dialog.dismiss()
+            showListDetails(list)
         }
         // 4
         builder.create().show()
+    }
+    private fun showListDetails (list: TaskList){
+        val listDetailsIntent = Intent(this ,
+        activity_list_detail::class.java)
+        listDetailsIntent.putExtra(INTENT_LIST_KEY, list)
+        startActivity(listDetailsIntent)
+    }
+    companion object {
+        const val INTENT_LIST_KEY = "list"
+    }
+    override fun listItemClicked(list: TaskList) {
+        showListDetails(list)
     }
 }
