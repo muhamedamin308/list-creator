@@ -14,7 +14,7 @@
         android:theme="@style/Theme.ListMaker"
         tools:targetApi="31">
         <activity
-            android:name=".activity_list_detail"
+            android:name=".ListDetailActivity"
             android:exported="false" />
         <activity
             android:name=".MainActivity"

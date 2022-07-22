@@ -13,22 +13,19 @@ import com.example.listmaker.databinding.ActivityListDetailBinding
 import com.example.listmaker.databinding.ActivityMainBinding
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
-class activity_list_detail : AppCompatActivity() {
+class ListDetailActivity : AppCompatActivity() {
     lateinit var list: TaskList
     lateinit var listItemsRecyclerView: RecyclerView
-    lateinit var binding: ActivityListDetailBinding
     lateinit var addTaskButton: FloatingActionButton
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_list_detail)
-        binding = ActivityListDetailBinding.inflate(layoutInflater)
-        setContentView(binding.root)
         list = intent.getParcelableExtra(MainActivity.INTENT_LIST_KEY)!!
         title = list.name
-        listItemsRecyclerView = binding.listItemRecyclerView
+        listItemsRecyclerView = findViewById(R.id.list_items_recyclerview)
         listItemsRecyclerView.adapter = ListItemsRecyclerViewAdapter(list)
         listItemsRecyclerView.layoutManager = LinearLayoutManager(this)
-        addTaskButton = binding.AddTaskBtn
+        addTaskButton = findViewById(R.id.AddTaskBtn)
         addTaskButton.setOnClickListener {
             showCreateTaskDialog()
         }
