@@ -7,6 +7,13 @@
         <item name="colorAccent">@color/secondaryColor</item>
         <!-- Status bar color. -->
     </style>
+    <style name="SplashScreenTheme" parent="Theme.AppCompat.NoActionBar">
+        <!-- Primary brand color. -->
+        <item name="colorPrimary">@color/primaryColor</item>
+        <item name="colorPrimaryDark">@color/primaryDarkColor</item>
+        <item name="colorAccent">@color/secondaryColor</item>
+        <!-- Status bar color. -->
+    </style>
 
     <style name="Theme.ListMaker.NoActionBar">
         <item name="windowActionBar">false</item>
